@@ -48,7 +48,7 @@
     <script>
     	$('#get-info-rc').on('click', function() {
     		$.ajax({
-    			url: 'index.php?route=extension/module/rozetka_ec/getInfoPayment&user_token={{ user_token }}&rozetka_uuid={{ rozetka_uuid }}',
+    			url: 'index.php?route=extension/module/rozetka_ec/getInfoPayment&user_token={{ user_token }}&order_id={{ order_id }}',
     			dataType: 'html',
     			beforeSend: function() {
     				$('#get-info-rc').button('loading');
@@ -80,7 +80,7 @@
     		$.ajax({
     			url: 'index.php?route=extension/module/rozetka_ec/getResendCallback&user_token={{ user_token }}',
 				type: 'post',
-				data: 'order_id={{ rozetka_uuid }}',
+				data: 'order_id={{ order_id }}',
     			dataType: 'json',
     			beforeSend: function() {
     				$('#get-callback').button('loading');
@@ -142,11 +142,8 @@
     <operation>
       <search><![CDATA[$this->load->model('setting/extension');]]></search>
       <add position="before"><![CDATA[
-      $data['payment_code'] = $order_info['payment_code'];
-	  
-	  $this->load->model('extension/module/rozetka_ec');
-	  
-	  $data['rozetka_uuid'] = $this->model_extension_module_rozetka_ec->getUuid($this->request->get['order_id']);
+      $data['payment_code'] = $order_info['payment_code'];	  
+	  $data['order_id'] = $this->request->get['order_id'];
 	  
       ]]></add>
     </operation>
