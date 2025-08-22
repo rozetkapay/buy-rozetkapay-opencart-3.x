@@ -46,7 +46,7 @@
 				<input type="text" name="amount_transaction" value="{{ result.amount }}" id="input-amount" class="form-control" style="float:left;max-width:110px;margin-left:10px" />
 			</div>
 		</div>
-        <button type="button" class="btn btn-danger" id="cancel-rc-pay" data-uuid="{{ result.uuid }}">{{ text_cancel_pay }}</button>
+        <button type="button" class="btn btn-danger" id="cancel-rc-pay" data-order_id="{{ result.order_id }}">{{ text_cancel_pay }}</button>
       </div>
 	{% endif %}
 	{% else %}
@@ -57,10 +57,10 @@
 	<script>		
 		$('#cancel-rc-pay').on('click', function() {
 			var amount = parseFloat($('#input-amount').val());
-			var uuid = $(this).attr('data-uuid');
+			var order_id = $(this).attr('data-order_id');
 
 			$.ajax({
-				url: 'index.php?route=extension/module/rozetka_ec/paymentRefund&user_token={{ user_token }}&amount=' + encodeURIComponent(amount) + '&rozetka_uuid=' + encodeURIComponent(uuid),
+				url: 'index.php?route=extension/module/rozetka_ec/paymentRefund&user_token={{ user_token }}&amount=' + encodeURIComponent(amount) + '&order_id=' + encodeURIComponent(order_id),
 				dataType: 'json',
 				beforeSend: function() {
 					$('#cancel-rc-pay').button('loading');
